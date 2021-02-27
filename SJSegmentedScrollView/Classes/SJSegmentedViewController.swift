@@ -291,7 +291,6 @@ import UIKit
             segmentedScrollView.sjDisableScrollOnContentView = disableScrollOnContentView
         }
     }
-    
     open weak var delegate:SJSegmentedViewControllerDelegate?
     var segmentedScrollView = SJSegmentedScrollView(frame: CGRect.zero)
     var segmentScrollViewTopConstraint: NSLayoutConstraint?
@@ -361,7 +360,7 @@ import UIKit
 			segmentedScrollView.segmentView?.didSelectSegmentAtIndex!(segments[index],
 			                                                          index,
 			                                                          animated)
-			NotificationCenter.default.post(name: Notification.Name(rawValue: "DidChangeSegmentIndex"),
+			NotificationCenter.default.post(name: Notification.Name(rawValue: "DidChangeSegmentIndex_\(String(format: "%p", self))"),
 			                                object: index)
 		}
 	}
@@ -390,6 +389,7 @@ import UIKit
      * Private method for adding the segmented scroll view.
      */
     func addSegmentedScrollView() {
+        segmentedScrollView.segmentedViewControllerPointerRefStr = String(format: "%p", self)
         
         let topSpacing = SJUtil.getTopSpacing(self)
         segmentedScrollView.topSpacing = topSpacing

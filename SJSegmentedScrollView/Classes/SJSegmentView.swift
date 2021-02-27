@@ -79,6 +79,7 @@ class SJSegmentView: UIScrollView {
     var selectedSegmentViewWidthConstraint: NSLayoutConstraint?
     var contentSubViewWidthConstraints = [NSLayoutConstraint]()
 	var controllers: [UIViewController]?
+    var segmentedViewControllerPointerRefStr: String = ""
     
     var contentView: SJContentView? {
         didSet {
@@ -99,7 +100,7 @@ class SJSegmentView: UIScrollView {
 
 		NotificationCenter.default.addObserver(self,
 		                                       selector: #selector(SJSegmentView.didChangeSegmentIndex(_:)),
-		                                       name: NSNotification.Name("DidChangeSegmentIndex"),
+		                                       name: NSNotification.Name("DidChangeSegmentIndex_\(segmentedViewControllerPointerRefStr)"),
 		                                       object: nil)
     }
 
@@ -113,7 +114,7 @@ class SJSegmentView: UIScrollView {
                                     context: nil)
         
         NotificationCenter.default.removeObserver(self,
-                                                            name:NSNotification.Name("DidChangeSegmentIndex"),
+                                                            name:NSNotification.Name("DidChangeSegmentIndex_\(segmentedViewControllerPointerRefStr)"),
                                                             object: nil)
     }
     
@@ -188,6 +189,7 @@ class SJSegmentView: UIScrollView {
         
         let segmentView = getSegmentTabForController(controller)
         segmentView.tag = (index + kSegmentViewTagOffset)
+        segmentView.segmentedViewControllerPointerRefStr = segmentedViewControllerPointerRefStr
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         segmentContentView!.addSubview(segmentView)
         

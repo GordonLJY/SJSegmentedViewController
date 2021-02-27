@@ -25,6 +25,7 @@ import UIKit
 class SJSegmentedScrollView: UIScrollView {
     
     var segmentView: SJSegmentView?
+    var segmentedViewControllerPointerRefStr: String = ""
     
     var headerViewHeight: CGFloat! = 0 {
         didSet {
@@ -271,6 +272,7 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.shadow							= segmentShadow
             segmentView?.font							= segmentTitleFont!
             segmentView?.bounces						= false
+            segmentView!.segmentedViewControllerPointerRefStr = segmentedViewControllerPointerRefStr
             segmentView!.translatesAutoresizingMaskIntoConstraints = false
             segmentView!.didSelectSegmentAtIndex = {[unowned self]
                 (segment, index, animated) in
@@ -322,6 +324,7 @@ class SJSegmentedScrollView: UIScrollView {
         contentView.isScrollEnabled = !sjDisableScrollOnContentView
         contentView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.bounces = segmentBounces
+        contentView.segmentedViewControllerPointerRefStr = segmentedViewControllerPointerRefStr
         scrollContentView.addSubview(contentView)
         
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[contentView]-0-|",
