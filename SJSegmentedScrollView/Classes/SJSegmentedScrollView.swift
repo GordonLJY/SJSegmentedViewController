@@ -261,7 +261,7 @@ class SJSegmentedScrollView: UIScrollView {
         
         if controllers.count > 1 {
             
-            segmentView = SJSegmentView(frame: CGRect.zero)
+            segmentView = SJSegmentView(frame: CGRect.zero, pointerRef: segmentedViewControllerPointerRefStr)
 			segmentView?.controllers					= controllers
             segmentView?.selectedSegmentViewColor		= selectedSegmentViewColor
             segmentView?.selectedSegmentViewHeight		= selectedSegmentViewHeight!
@@ -272,7 +272,6 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.shadow							= segmentShadow
             segmentView?.font							= segmentTitleFont!
             segmentView?.bounces						= false
-            segmentView!.segmentedViewControllerPointerRefStr = segmentedViewControllerPointerRefStr
             segmentView!.translatesAutoresizingMaskIntoConstraints = false
             segmentView!.didSelectSegmentAtIndex = {[unowned self]
                 (segment, index, animated) in
@@ -308,7 +307,7 @@ class SJSegmentedScrollView: UIScrollView {
         
         let frame = CGRect(x: 0, y: headerViewHeight!,
                            width: bounds.size.width, height: segmentViewHeight!)
-        segmentView = SJSegmentView(frame: frame)
+        segmentView = SJSegmentView(frame: frame, pointerRef: segmentedViewControllerPointerRefStr)
         segmentView!.didSelectSegmentAtIndex = {
             [unowned self] (segment, index, animated) in
             self.contentView?.movePageToIndex(index, animated: animated)

@@ -66,6 +66,7 @@ class SJSegmentView: UIScrollView {
         }
     }
     
+    private var segmentedViewControllerPointerRefStr: String = ""
     var font: UIFont?
     var selectedSegmentViewHeight: CGFloat?
     let kSegmentViewTagOffset = 100
@@ -79,7 +80,6 @@ class SJSegmentView: UIScrollView {
     var selectedSegmentViewWidthConstraint: NSLayoutConstraint?
     var contentSubViewWidthConstraints = [NSLayoutConstraint]()
 	var controllers: [UIViewController]?
-    var segmentedViewControllerPointerRefStr: String = ""
     
     var contentView: SJContentView? {
         didSet {
@@ -90,22 +90,22 @@ class SJSegmentView: UIScrollView {
         }
     }
     
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-
-		showsHorizontalScrollIndicator = false
-		showsVerticalScrollIndicator = false
-		bounces = false
-
-
-		NotificationCenter.default.addObserver(self,
-		                                       selector: #selector(SJSegmentView.didChangeSegmentIndex(_:)),
-		                                       name: NSNotification.Name("DidChangeSegmentIndex_\(segmentedViewControllerPointerRefStr)"),
-		                                       object: nil)
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(frame: CGRect, pointerRef: String) {
+        super.init(frame: frame)
+
+        showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
+        bounces = false
+
+        segmentedViewControllerPointerRefStr = pointerRef
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SJSegmentView.didChangeSegmentIndex(_:)),
+                                               name: NSNotification.Name("DidChangeSegmentIndex_\(pointerRef)"),
+                                               object: nil)
     }
     
     deinit {
