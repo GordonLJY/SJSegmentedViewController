@@ -49,6 +49,7 @@ class ViewController: SJSegmentedViewController {
 			segmentTitleColor = .gray
 			selectedSegmentViewColor = .red
 			segmentShadow = SJShadow.light()
+            segmentRightOffset = 0
 			showsHorizontalScrollIndicator = false
 			showsVerticalScrollIndicator = false
 			segmentBounces = false

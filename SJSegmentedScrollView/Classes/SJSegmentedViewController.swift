@@ -185,6 +185,17 @@ import UIKit
     }
     
     /**
+     *  Set right offset for segment.
+     *
+     *  segmentedScrollView.segmentRightOffset = 0.0
+     */
+    open var segmentRightOffset: CGFloat = 0.0 {
+        didSet {
+            segmentedScrollView.segmentRightOffset = segmentRightOffset
+        }
+    }
+    
+    /**
      *  Set bounce for segment.
      *
      *  By default it is set to true.
@@ -438,7 +449,7 @@ import UIKit
      - parameter contentControllers: array of ViewControllers
      */
     func addContentControllers(_ contentControllers: [UIViewController]) {
-        segmentedScrollView.addSegmentView(contentControllers, frame: view.bounds)
+        segmentedScrollView.addSegmentView(contentControllers, frame: view.bounds, rightOffset: segmentRightOffset)
         
         var index = 0
         for controller in contentControllers {
