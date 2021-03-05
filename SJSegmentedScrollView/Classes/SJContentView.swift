@@ -46,10 +46,10 @@ class SJContentView: UIScrollView {
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView]|",
                                                                                    options: [],
                                                                                    metrics: nil,
-                                                                                   views: ["contentView": contentView, "mainView": self])
+                                                                                   views: ["contentView": contentView as Any, "mainView": self])
         addConstraints(horizontalConstraints)
         
-        contentViewWidthConstraint = NSLayoutConstraint(item: contentView,
+        contentViewWidthConstraint = NSLayoutConstraint(item: contentView as Any,
                                                         attribute: .width,
                                                         relatedBy: .equal,
                                                         toItem: nil,
@@ -61,7 +61,7 @@ class SJContentView: UIScrollView {
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==mainView)]|",
                                                                                  options: [],
                                                                                  metrics: nil,
-                                                                                 views: ["contentView": contentView, "mainView": self])
+                                                                                 views: ["contentView": contentView as Any, "mainView": self])
         addConstraints(verticalConstraints)
     }
     

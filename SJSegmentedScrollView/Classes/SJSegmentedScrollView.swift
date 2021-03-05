@@ -168,17 +168,17 @@ class SJSegmentedScrollView: UIScrollView {
             let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==mainView)]|",
                                                                                        options: [],
                                                                                        metrics: nil,
-                                                                                       views: ["contentView": scrollContentView, "mainView": self])
+                                                                                       views: ["contentView": scrollContentView as Any, "mainView": self])
             addConstraints(horizontalConstraints)
             
             let contentHeight = getContentHeight()
             let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView]|",
                                                                                      options: [],
                                                                                      metrics: nil,
-                                                                                     views: ["contentView": scrollContentView])
+                                                                                     views: ["contentView": scrollContentView as Any])
             addConstraints(verticalConstraints)
             
-            contentViewHeightConstraint = NSLayoutConstraint(item: scrollContentView,
+            contentViewHeightConstraint = NSLayoutConstraint(item: scrollContentView as Any,
                                                              attribute: .height,
                                                              relatedBy: .equal,
                                                              toItem: nil,
