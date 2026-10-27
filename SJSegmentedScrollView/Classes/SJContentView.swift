@@ -165,4 +165,20 @@ extension SJContentView: UIScrollViewDelegate {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "DidChangeSegmentIndex_\(segmentedViewControllerPointerRefStr)"),
                                         object: pageIndex)
     }
+
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		let offsetX = scrollView.contentOffset.x
+    	let maxOffsetX = scrollView.contentSize.width - scrollView.bounds.width + scrollView.adjustedContentInset.right
+    	let dragOffset = 30.0
+    	if offsetX < -scrollView.adjustedContentInset.left - dragOffset {
+        	// Left Overscroll
+        	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentLeftOverscroll"),
+											object: pageIndex)
+        
+    	} else if offsetX > maxOffsetX + dragOffset {
+        	// Right Overscroll
+        	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentRightOverscroll"),
+											object: pageIndex)
+    	}
+    }
 }
