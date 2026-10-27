@@ -350,9 +350,11 @@ import UIKit
     }
 
 	deinit {
-        NotificationCenter.default.removeObserver(self, name:NSNotification.Name("ScrollContentLeftOverscroll"),
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name("ScrollContentLeftOverscroll"),
 												  object: nil)
-		NotificationCenter.default.removeObserver(self, name:NSNotification.Name("ScrollContentRightOverscroll"),
+		NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name("ScrollContentRightOverscroll"),
 												  object: nil)
     }
     
@@ -521,10 +523,14 @@ import UIKit
     }
 
 	@objc func scrollContentLeftOverscroll(_ notification: Notification) {
+        let contentView = notification.object as? UIScrollView
+        guard segmentedScrollView.contentView == contentView else {return}
 		delegate?.contentDidOverscrollToTheLeft?()
     }
 
 	@objc func scrollContentRightOverscroll(_ notification: Notification) {
+        let contentView = notification.object as? UIScrollView
+        guard segmentedScrollView.contentView == contentView else {return}
 		delegate?.contentDidOverscrollToTheRight?()
     }
 }
