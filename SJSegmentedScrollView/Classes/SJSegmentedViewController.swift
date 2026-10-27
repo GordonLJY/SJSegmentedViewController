@@ -34,6 +34,7 @@ import UIKit
      - parameter index: index of selected segment.
      */
     @objc optional func didMoveToPage(_ controller: UIViewController, segment: SJSegmentTab?, index: Int)
+	@objc optional func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
 }
 
 /**
@@ -390,7 +391,8 @@ import UIKit
      */
     func addSegmentedScrollView() {
         segmentedScrollView.segmentedViewControllerPointerRefStr = String(format: "%p", self)
-        
+        segmentedScrollView.delegate = self
+
         let topSpacing = SJUtil.getTopSpacing(self)
         segmentedScrollView.topSpacing = topSpacing
         
@@ -498,5 +500,11 @@ import UIKit
         delegate?.didMoveToPage?(segmentControllers[0],
                                  segment: segment,
                                  index: 0)
+    }
+}
+
+extension SJSegmentedViewController: UIScrollViewDelegate {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        delegate?.scrollViewWillBeginDragging?(scrollView)
     }
 }
