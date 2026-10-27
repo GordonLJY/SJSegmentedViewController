@@ -504,11 +504,11 @@ import UIKit
 }
 
 extension SJSegmentedViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         delegate?.scrollViewWillBeginDragging?(scrollView)
     }
 
-	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+	public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		print("STUB")
     }
 }
