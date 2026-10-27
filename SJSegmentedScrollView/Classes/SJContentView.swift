@@ -173,12 +173,12 @@ extension SJContentView: UIScrollViewDelegate {
     	if offsetX < -scrollView.adjustedContentInset.left - dragOffset {
         	// Left Overscroll
         	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentLeftOverscroll"),
-											object: pageIndex)
+											object: self)
         
     	} else if offsetX > maxOffsetX + dragOffset {
         	// Right Overscroll
         	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentRightOverscroll"),
-											object: pageIndex)
+											object: self)
     	}
     }
 }
