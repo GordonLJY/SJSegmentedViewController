@@ -153,6 +153,8 @@ class SJContentView: UIScrollView {
         } else {
             contentOffset = point
         }
+
+		overscrollTriggerFlag = true
     }
 }
 
