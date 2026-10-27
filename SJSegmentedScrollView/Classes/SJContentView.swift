@@ -166,10 +166,11 @@ extension SJContentView: UIScrollViewDelegate {
                                         object: pageIndex)
     }
 
-	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let offsetX = scrollView.contentOffset.x
     	let maxOffsetX = scrollView.contentSize.width - scrollView.bounds.width + scrollView.adjustedContentInset.right
-    	let dragOffset = 30.0
+    	let dragOffset = 50.0
+
     	if offsetX < -scrollView.adjustedContentInset.left - dragOffset {
         	// Left Overscroll
         	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentLeftOverscroll"),
