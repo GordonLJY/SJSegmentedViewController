@@ -32,6 +32,8 @@ class SJContentView: UIScrollView {
     let animationDuration = 0.3
     var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
     var segmentedViewControllerPointerRefStr: String = ""
+
+	private var overscrollTriggerFlag = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -167,19 +169,26 @@ extension SJContentView: UIScrollViewDelegate {
     }
 
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard overscrollTriggerFlag else { return }
 		let offsetX = scrollView.contentOffset.x
     	let maxOffsetX = scrollView.contentSize.width - scrollView.bounds.width + scrollView.adjustedContentInset.right
-    	let dragOffset = 50.0
-
-    	if offsetX < -scrollView.adjustedContentInset.left - dragOffset {
+    	let dragTriggerOffset = 80.0
+        
+    	if offsetX < -scrollView.adjustedContentInset.left - dragTriggerOffset {
         	// Left Overscroll
+            overscrollTriggerFlag = false
         	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentLeftOverscroll"),
 											object: self)
         
-    	} else if offsetX > maxOffsetX + dragOffset {
+    	} else if offsetX > maxOffsetX + dragTriggerOffset {
         	// Right Overscroll
+            overscrollTriggerFlag = false
         	NotificationCenter.default.post(name: Notification.Name(rawValue: "ScrollContentRightOverscroll"),
 											object: self)
     	}
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        overscrollTriggerFlag = true
     }
 }
