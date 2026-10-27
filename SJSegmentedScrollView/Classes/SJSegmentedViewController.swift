@@ -34,6 +34,8 @@ import UIKit
      - parameter index: index of selected segment.
      */
     @objc optional func didMoveToPage(_ controller: UIViewController, segment: SJSegmentTab?, index: Int)
+	@objc optional func contentDidOverscrollToTheLeft()
+	@objc optional func contentDidOverscrollToTheRight()
 }
 
 /**
@@ -334,6 +336,24 @@ import UIKit
 		} else {
 			automaticallyAdjustsScrollViewInsets = false
 		}
+		NotificationCenter.default.addObserver(self,
+											   selector: #selector(scrollContentLeftOverscroll(_:)),
+                                               name: NSNotification.Name("ScrollContentLeftOverscroll"),
+                                               object: nil)
+		
+		NotificationCenter.default.addObserver(self,
+                                               selector: #selector(scrollContentRightOverscroll(_:)),
+                                               name: NSNotification.Name("ScrollContentRightOverscroll"),
+                                               object: nil)
+		
+
+    }
+
+	deinit {
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name("ScrollContentLeftOverscroll"),
+												  object: nil)
+		NotificationCenter.default.removeObserver(self, name:NSNotification.Name("ScrollContentRightOverscroll"),
+												  object: nil)
     }
     
     /**
@@ -498,5 +518,13 @@ import UIKit
         delegate?.didMoveToPage?(segmentControllers[0],
                                  segment: segment,
                                  index: 0)
+    }
+
+	@objc func scrollContentLeftOverscroll(_ notification: Notification) {
+		delegate?.contentDidOverscrollToTheLeft?()
+    }
+
+	@objc func scrollContentRightOverscroll(_ notification: Notification) {
+		delegate?.contentDidOverscrollToTheRight?()
     }
 }
